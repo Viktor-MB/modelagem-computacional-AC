@@ -23,10 +23,19 @@ void secante(double x0, double x1, int numero_maximo_iteracoes, double erro) {
         x2 = (x0 * func(x1) - x1 * func(x0)) / (func(x1) - func(x0));
         
         if (i > 0) { 
-            if (modulo((x2 - x1) / x2) < erro) {
+            double calculo_erro = modulo((x2 - x1) / x2);
+
+            cout << "Iteracao " << i + 1
+                 << " | erro = " << calculo_erro
+                 << " | limite = " << erro;
+
+            if (calculo_erro < erro) {
+                cout << " -> PAROU (erro < limite)" << endl;
                 cout << "Raiz encontrada: " << x2 << endl;
-                cout << "Iteracao de parada: " << i  << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
-                return; 
+                cout << "Iteracao de parada: " << i << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
+                return;
+            } else {
+                cout << " -> continua (erro > limite)" << endl;
             }
         }
 
@@ -47,3 +56,7 @@ int main() {
 
     return 0;
 }
+
+// COMANDO PARA RODAR O CODIGO
+// g++ secante.cpp -o secante
+// ./secante

@@ -28,13 +28,20 @@ double FalsaPosicao(double a, double b, int K, double erro) {
         x_ant = x_atual;
         x_atual = (a * func(b) - b * func(a)) / (func(b) - func(a));
 
-        if (i > 0) { // Não faz sentido calcular o erro na primeira iteração, pois não temos um valor anterior
+        if (i > 0) {
             double calculo_erro = modulo((x_atual - x_ant) / x_atual);
-            
+
+            cout << "Iteracao " << i + 1
+                 << " | erro = " << calculo_erro
+                 << " | limite = " << erro;
+
             if (calculo_erro < erro) {
-                cout << "Raiz encontrada: " << fixed  << x_atual << endl;
-                cout << "Iteracao de parada: " << i  << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
+                cout << " -> PAROU (erro < limite)" << endl;
+                cout << "Raiz encontrada: " << fixed << x_atual << endl;
+                cout << "Iteracao de parada: " << i << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
                 return x_atual;
+            } else {
+                cout << " -> continua (erro > limite)" << endl;
             }
         }
 
@@ -46,10 +53,9 @@ double FalsaPosicao(double a, double b, int K, double erro) {
     }
 
     cout << "A precisao desejada de " << erro << " nao foi alcancada." << endl;
-    cout << "Ultimo valor calculado: " << x_atual << endl;    
+    cout << "Ultimo valor calculado: " << x_atual << endl;
     return x_atual;
 }
-
 
 int main() {
     double a = 2.0;
@@ -58,6 +64,12 @@ int main() {
     double erro = 5e-4;
 
     FalsaPosicao(a, b, K, erro);
-    
+
     return 0;
 }
+
+
+// COMANDO PARA RODAR O CODIGO
+
+// g++ falsa-posicao.cpp -o falsa-posicao
+// ./falsa-posicao

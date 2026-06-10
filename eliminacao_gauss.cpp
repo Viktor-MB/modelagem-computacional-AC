@@ -90,3 +90,9 @@ int main() {
 
     return 0;
 }
+
+
+// COMANDO PARA RODAR O CODIGO
+
+// g++ eliminacao_gauss.cpp -o eliminacao_gauss
+// ./eliminacao_gauss
