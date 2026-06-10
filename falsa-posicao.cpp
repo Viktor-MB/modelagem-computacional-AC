@@ -35,7 +35,7 @@ double FalsaPosicao(double a, double b, int K, double erro) {
                  << " | erro = " << calculo_erro
                  << " | limite = " << erro;
 
-            if (calculo_erro < erro) {
+            if (calculo_erro < erro) { // Não faz sentido calcular o erro na primeira iteração, pois não temos um valor anterior
                 cout << " -> PAROU (erro < limite)" << endl;
                 cout << "Raiz encontrada: " << fixed << x_atual << endl;
                 cout << "Iteracao de parada: " << i << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
@@ -67,7 +67,6 @@ int main() {
 
     return 0;
 }
-
 
 // COMANDO PARA RODAR O CODIGO
 
