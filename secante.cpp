@@ -5,13 +5,14 @@
 using namespace std;
 
 double func(double x) {
-    return exp(-x) - x; 
+    return exp(-x) - x;
 }
 
 double modulo(double x) {
     if (x < 0.0) {
         return -x;
     }
+
     return x;
 }
 
@@ -20,33 +21,57 @@ void secante(double x0, double x1, int numero_maximo_iteracoes, double erro) {
 
     for (int i = 0; i < numero_maximo_iteracoes; i++) {
 
+        // Fórmula da Secante
         x2 = (x0 * func(x1) - x1 * func(x0)) / (func(x1) - func(x0));
-        
-        if (i > 0) { 
+
+        // Primeira iteração
+        if (i == 0) {
+
+            cout << "Iteracao " << i + 1
+                 << " | erro = ---"
+                 << " | limite = " << erro
+                 << " -> continua (primeira iteracao)" << endl;
+
+        } else {
+
+            // Cálculo do erro relativo
             double calculo_erro = modulo((x2 - x1) / x2);
 
             cout << "Iteracao " << i + 1
                  << " | erro = " << calculo_erro
                  << " | limite = " << erro;
 
+            // Critério de parada
             if (calculo_erro < erro) {
+
                 cout << " -> PAROU (erro < limite)" << endl;
                 cout << "Raiz encontrada: " << x2 << endl;
-                cout << "Iteracao de parada: " << i << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
+
+                cout << "Iteracao de parada: " << i
+                     << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao "
+                     << i + 1 << endl;
+
                 return;
+
             } else {
+
                 cout << " -> continua (erro > limite)" << endl;
             }
         }
 
+        // Atualização dos pontos
         x0 = x1;
         x1 = x2;
     }
 
-    cout << "Raiz aproximada: " << x2 << " apos " << numero_maximo_iteracoes << " iteracoes." << endl;
+    cout << "A precisao desejada de " << erro
+         << " nao foi alcancada." << endl;
+
+    cout << "Ultimo valor calculado: " << x2 << endl;
 }
 
 int main() {
+
     double x0 = 0.0;
     double x1 = 1.0;
     int iteracoes = 15;
@@ -58,5 +83,6 @@ int main() {
 }
 
 // COMANDO PARA RODAR O CODIGO
+
 // g++ secante.cpp -o secante
 // ./secante

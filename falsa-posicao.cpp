@@ -12,7 +12,7 @@ double modulo(double x) {
 }
 
 double func(double x) {
-    return (x * log10(x)) - 1.0;
+    return x * log10(x) - 1;
 }
 
 double FalsaPosicao(double a, double b, int K, double erro) {
@@ -28,7 +28,13 @@ double FalsaPosicao(double a, double b, int K, double erro) {
         x_ant = x_atual;
         x_atual = (a * func(b) - b * func(a)) / (func(b) - func(a));
 
-        if (i > 0) {
+        if (i == 0) {
+            cout << "Iteracao " << i + 1
+                 << " | erro = ---"
+                 << " | limite = " << erro
+                 << " -> continua (primeira iteracao)" << endl;
+        }
+        else {
             double calculo_erro = modulo((x_atual - x_ant) / x_atual);
 
             cout << "Iteracao " << i + 1
@@ -38,7 +44,9 @@ double FalsaPosicao(double a, double b, int K, double erro) {
             if (calculo_erro < erro) { // Não faz sentido calcular o erro na primeira iteração, pois não temos um valor anterior
                 cout << " -> PAROU (erro < limite)" << endl;
                 cout << "Raiz encontrada: " << fixed << x_atual << endl;
-                cout << "Iteracao de parada: " << i << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao " << i + 1 << endl;
+                cout << "Iteracao de parada: " << i
+                     << "\nOBS: A iteracao sempre comeca com zero, ou seja para a gente seria a iteracao "
+                     << i + 1 << endl;
                 return x_atual;
             } else {
                 cout << " -> continua (erro > limite)" << endl;
@@ -61,7 +69,7 @@ int main() {
     double a = 2.0;
     double b = 3.0;
     int K = 15;
-    double erro = 5e-4;
+    double erro = 0.001;
 
     FalsaPosicao(a, b, K, erro);
 
